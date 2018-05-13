@@ -1,0 +1,29 @@
+language: node_js
+node_js: stable
+
+# S: Build Lifecycle
+install:
+  - npm install
+
+#before_script:
+ # - npm install -g gulp
+
+script:
+  - hexo g
+
+after_script:
+  - cd ./public
+  - git init
+  - git config user.name "geonsme"
+  - git config user.email "1090700965@qq.com"
+  - git add .
+  - git commit -m "Update docs"
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
+# E: Build LifeCycle
+
+branches:
+  only:
+    - hexo --{Hexo源码分支名称}
+env:
+ global:
+   - GH_REF: github.com/geonsme/geonsme.github.io.git
