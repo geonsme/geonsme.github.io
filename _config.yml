@@ -79,7 +79,5 @@ theme: maupassant
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/geonsme/geonsme.github.io.git
+  repo: https://gh_token@github.com/geonsme/geonsme.github.io.git
   branch: master
-  name: geonsme
-  email: 1090700965@qq.com
