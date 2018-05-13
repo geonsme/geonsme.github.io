@@ -23,7 +23,7 @@ after_script:
 
 branches:
   only:
-    - hexo --{Hexo源码分支名称}
+    - hexo
 env:
  global:
    - GH_REF: github.com/geonsme/geonsme.github.io.git
