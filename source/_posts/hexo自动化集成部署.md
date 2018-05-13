@@ -1,5 +1,5 @@
 ---
-title: hexo+github+travis打造简洁博客
+title: hexo+github+travis实现博客持续集成、发布
 toc: true
 ---
 
@@ -64,4 +64,5 @@ More info: [大道至简——Hexo简洁主题推荐](https://www.haomwei.com/te
 
 至此，在blog目录中执行 **hexo s**，通过IP加端口可以访问到调试博客页面。下一步就是将博客进行发布。
 
-### 
+### Github Page
+待续
