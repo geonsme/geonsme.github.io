@@ -1,6 +1,11 @@
 ---
 title: hexo+github+travis实现博客持续集成、发布
 toc: true
+category: 
+ - 前端
+tag:
+ - hexo
+ - 持续集成
 ---
 
 之前网站是用Pelican+GithubPage，由于整体风格不是自己最喜欢的简约风，花了一个周末改成hexo，并集成Travis CI功能，实现一键发布，自动部署。本文主要介绍hexo安装部署，travis ci使用，githubPage由于网上资料很多，略过。本文环境是Debian8，Windows大同小异。
