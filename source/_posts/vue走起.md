@@ -2,6 +2,7 @@
 title: 十分钟把Vue跑起来
 toc: true
 description: 十分钟把Vue项目跑起来，打造快速Vue demo
+date: 2017-10-25
 category: 
  - 前端
 tag:
