@@ -10,8 +10,6 @@ tag:
  - 静态博客
 ---
 
-
-
 ## 准备工作
 &emsp;在国内，Pelican的知名度和没有国外那么高，因此也没有几篇像模像样的教程，本文介绍Pelican+GithubPage进行快速博客搭建的方法，Windows和Linux平台差别不大，文章以Windows平台。
 

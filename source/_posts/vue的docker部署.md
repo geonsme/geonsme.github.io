@@ -1,7 +1,7 @@
 ---
 title: 用Docker实现Vue前端持续集成开发（上）
 toc: true
-description: 用Docker实现Vue前端持续集成开发（上）
+description: vue的部署流程之一就是webpack的打包，用daoCloud实现docker持续集成，可以快速安全构建最新和回滚版本，大幅提升了前端版本管理效率。
 date: 2017-12-02
 category: 
  - 前端
@@ -24,7 +24,7 @@ tag:
 
 Vue-cli脚手架的具体用法请移步[Vue脚手架-手摸手系列](http://geons.me/fast-study-vue.html)
 
-```shell
+```bash
 vue init webpack vue-docker-demo
 ```
 

@@ -14,21 +14,21 @@ tag:
 
 ## Debian的准备工作
 添加软件包源并更新列表
-```shell
-echo -e "\ndeb http://ftp.debian.org/debian/ wheezy-backports main" >> /etc/apt/sources.list
-apt-get update
+```bash
+$ echo -e "\ndeb http://ftp.debian.org/debian/ wheezy-backports main" >> /etc/apt/sources.list
+$ apt-get update
 ```
 使用root权限操作
-```shell
-su root
+```bash
+$ su root
 ```
 
 ## 安装内核
 
 ### 查询可用内核列表
 
-```shell
-aptitude search linux-image | awk '{print $2}'
+```bash
+$ aptitude search linux-image | awk '{print $2}'
 ```
 
 执行代码后可以看到很多内核版本，Debian 7 x64 系统选择 linux-image-3.2.0-4-amd64 内核，这个内核大部分 Debian 7 系统都是使用。而Ubuntu 14.04 则选择 linux-image-3.13.0-32-generic 内核。
@@ -36,22 +36,22 @@ aptitude search linux-image | awk '{print $2}'
 Debian和Ubuntu唯一的区别就是这里提示的内核名称不一样，和下面安装内核用的命令略有区别，其他都通用！
 
 ### Debian安装内核
-```shell
-apt-get -t wheezy-backports install linux-image-3.2.0-4-amd64 -y
+```bash
+$ apt-get -t wheezy-backports install linux-image-3.2.0-4-amd64 -y
 ```
 
 ### Ubuntu安装内核
-```shell
-apt-get install linux-image-3.13.0-32-generic -y
+```bash
+$ apt-get install linux-image-3.13.0-32-generic -y
 ```
 
 ## 卸载内核
 ### 查看当前系统内核
-```shell
-dpkg -l|grep linux-image | awk '{print $2}'
+```bash
+$ dpkg -l|grep linux-image | awk '{print $2}'
 ```
 
-```shell
+```bash
 # VPS提示示例/64位 #
 # Debian 7 和 8 可能不一样，还有 64位和32位 内容也不一样。
  
@@ -65,17 +65,17 @@ linux-image-4.10.1-041001-generic
 ```
 
 ### 卸载其余内核
-```shell
-apt-get purge 其余内核名字 -y
+```bash
+$ apt-get purge 其余内核名字 -y
 # 示例 #
-apt-get purge linux-image-4.10.1-041001-generic -y
+$ apt-get purge linux-image-4.10.1-041001-generic -y
 # 示例 #
 ```
 
 ## 更新grub系统引导文件并重启
-```shell
-update-grub
-reboot
+```bash
+$ update-grub
+$ reboot
 ```
 
 ## 注意

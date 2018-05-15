@@ -1,7 +1,7 @@
 ---
-title:  debian下crontab执行时间不准确
+title:  使用tzconfig修正debian下crontab时间不准确
 toc: true
-description:  debian下crontab执行时间不准确
+description:  debian下crontab执行时间不准确经常碰见，原因是linux的时间分两部分，一是系统时间，二是BIOS时间，使用tzconfig修正时间。
 date: 2017-11-19
 category: 
  - 工具
@@ -10,7 +10,7 @@ tag:
 ---
 
 ## 遇到问题
-重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步，
+重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步。
 
 ## 初步解决
 ```shell
@@ -35,14 +35,14 @@ cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 ```
 
 
-发现它依然没有按照国内的时间来执行，之前也没遇到过问题，而且同样的设置，目前另外的机子上也正常执行，最后才想起我这个用的是debian系统，**debian系统下面，仅是设置/etc/localtime是不够的，更加需要的是/etc/timezone这个文件**。
+发现它依然没有按照国内的时间来执行，之前也没遇到过问题，而且同样的设置，目前另外的机子上也正常执行，最后才想起我这个用的是debian系统，``debian系统下面，仅是设置/etc/localtime是不够的，更加需要的是/etc/timezone这个文件``
 
 ## 使用tzconfig
 
 最后用了tzselect程序来设置时区，运行tzselect命令后，按照自己要的时间选择选项，最后选1保存确认即可。再次重启cron，添加测试任务，这次终于按照本地时间运行了，如果不行就重新登录一下或者重启下。
 
 ## 使用hwclock
-使用**sudo hwclock**修改硬件时间，设置时间同步
+使用``sudo hwclock``修改硬件时间，设置时间同步
 
 ## 相关资料
 

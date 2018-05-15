@@ -1,7 +1,7 @@
 ---
 title:  Redis Windows64位安装
 toc: true
-description:  Redis Windows64位安装启动
+description:  Redis官方并不提供win下的安装包，github上有win64Redis项目可以实现redis在win下的使用。
 date: 2017-11-26
 category: 
  - 后端
@@ -14,7 +14,7 @@ tag:
 
 ## Redis安装
 msi格式安装，Redis会以service形式运行，整个目录结构是
-```shell
+```bash
 redis-benchmark.exe // 基准测试
 redis-check-aof.exe // aof
 redis-check-dump.exe // dump 
@@ -26,27 +26,27 @@ redis.windows.conf // 配置文件
 ## 基本命令
 ### Redis服务启动
 从命令行以服务形式启动Redis
-```shell
+```bash
 redis-server redis.windows.conf
 ```
 
 或者使用
-```shell
+```bash
 redis-server --service-start
 ```
 
 ### 停止Redis服务
-```shell
+```bash
 redis-server --service-stop
 ```
 
 ## 卸载Redis服务
-```shell
+```bash
 redis-server --service-uninstall
 ```
 
 ## 指定Redis服务
-```shell
+```bash
 redis-server --service-install -server-name myRedisName -port 10001
 
 redis-server --service-start -server-name MyRedisName -port 10001
