@@ -1,11 +1,13 @@
-Title: Debian或者Ubuntu内核更新教程
-Category: 后台
-Tags: debian, kernel, ubuntu
-Slug: linux-update-kernel
-Authors: geons
-Summary: 专注后端的前端工程师
-Date: 2017-12-09 23:50:40
-Modified: 2017-12-09 23:50:50
+---
+title:  Debian或者Ubuntu内核更新教程
+toc: true
+description:  Debian或者Ubuntu内核更新教程
+date: 2017-12-09
+category: 
+ - 系统
+tag:
+ - linux
+---
 
 ## 为什么更换内核
 由于Linux内核版本更新快，可能向后兼容的问题经常出现，需要更换底层内核来实现环境安装，比如Docker的内核要4.0以上，本文将Debian/Ubuntu的更换内核方法做详细讲解

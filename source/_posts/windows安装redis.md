@@ -1,11 +1,13 @@
-Title: Redis Windows64位安装启动
-Category: 后台
-Tags: redis
-Slug: redis-win
-Authors: geons
-Summary: 专注后端的前端工程师
-Date: 2017-11-26 16:30:04
-Modified: 2017-11-26 16:30:10
+---
+title:  Redis Windows64位安装
+toc: true
+description:  Redis Windows64位安装启动
+date: 2017-11-26
+category: 
+ - 后端
+tag:
+ - redis
+---
 
 ## Redis(Win64)下载地址
 官方是不支持win版的，不过Microsoft Open Tech group 在Github上开发了一个win64Redis项目，地址是[https://github.com/MSOpenTech/redis](https://github.com/MSOpenTech/redis)

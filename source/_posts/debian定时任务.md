@@ -1,11 +1,14 @@
-Title: debian下crontab执行时间不准确
-Category: Linux
-Tags: crontab debian
-Slug: debian-cron-time
-Authors: geons
-Summary: crontab和cmos时间统一
-Date: 2017-11-19 16:19:31
-Modified: 2017-11-19 16:19:36
+---
+title:  debian下crontab执行时间不准确
+toc: true
+description:  debian下crontab执行时间不准确
+date: 2017-11-19
+category: 
+ - 工具
+tag:
+ - linux
+---
+
 ## 遇到问题
 重启了VPS后发现crontab定时任务执行时间不正确，并且与北京时间相差了8个小时，很明显是crontab定时任务依据的时间不是UTC时间，因此需要将BIOS时间和系统时间同步，
 
