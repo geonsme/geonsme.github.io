@@ -1,5 +1,5 @@
 ---
-title: hexo+github+travis实现博客持续集成、发布
+title: hexo+github+travis实现博客持续集成与发布
 toc: true
 date: 2018-05-13
 category: 
