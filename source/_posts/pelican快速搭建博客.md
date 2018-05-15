@@ -1,6 +1,7 @@
 ﻿---
 title: Pelican+GithubPage搭建静态博客
 toc: true
+data: 2017-10-25
 description: 十分钟使用pelican搭建静态博客，pelican也是除了hexo外用的比较多的静态博客框架，由于是Python和jinja2写的，可维护性比较高
 category: 
  - 前端

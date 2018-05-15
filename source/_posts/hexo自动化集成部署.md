@@ -1,6 +1,7 @@
 ---
 title: hexo+github+travis实现博客持续集成、发布
 toc: true
+date: 2018-05-13
 category: 
  - 前端
 tag:
