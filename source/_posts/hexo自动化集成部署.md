@@ -60,7 +60,7 @@ $ npm install hexo-renderer-pug --save
 $ npm install hexo-renderer-sass --save
 ```
 
-安装完成后，编辑Hexo目录下的 **_config.yml** ，将 theme的值修改为maupassant。
+安装完成后，编辑Hexo目录下的 ``_config.yml`` ，将 theme的值修改为maupassant。
 
 注：若npm install hexo-renderer-sass安装报错或者无进度，修改成cnpm安装。
 
@@ -68,7 +68,7 @@ $ npm install hexo-renderer-sass --save
 
 More info: [大道至简——Hexo简洁主题推荐](https://www.haomwei.com/technology/maupassant-hexo.html)
 
-至此，在blog目录中执行 **hexo s**，通过IP加端口可以访问到调试博客页面。下一步就是将博客进行发布。
+至此，在blog目录中执行 ``hexo s``，通过IP加端口可以访问到调试博客页面。下一步就是将博客进行发布。
 
 ### Github Page
 待续
