@@ -54,12 +54,15 @@ $ npm install
 ```
 
 - 开发环境运行
-> npm run dev
+```bash
+$ npm run dev
+```
 此时打开浏览器localhost:8080即可看到主页
 
 - build到开发环境，生成的文件在dst目录里面
-> npm run build
-
+```bash
+$ npm run build
+```
 注意这里比较坑的是，默认的引用路径需要修改，进入config/index.js文件，修改为assetPublicPath:'./'，设定为当前目录
 
 ## 总结
