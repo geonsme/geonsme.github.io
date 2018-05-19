@@ -22,16 +22,24 @@ Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，�
 > [Nodejs下载地址](https://nodejs.org/en/)
 
 - 全局安装vue-cli脚手架
-> npm install vue-cli -g
+```bash
+$ npm install vue-cli -g
+```
 
 - 使用webpack初始化项目
-> vue init webpack my_project
+```bash
+$ vue init webpack my_project
+```
 
 - 进入项目文件夹，使用npm安装依赖
-> cd my_project
+```bash
+$ cd my_project
+```
 
 - 安装依赖（根据package.json安装）
-> npm install 
+```bash
+$ npm install 
+```
 
 - 完成后的完整目录（具体的文件作用请阅读参考）
 
@@ -57,7 +65,7 @@ Vue的特别之处在于抛弃了DOM操作思维，Vue.js是数据驱动的，�
 ## 总结
 整个vue-cli就基本上完成了，不过在实际开发中可能还会根据不同的情况调整不同的参数。
 
-## 有用的资料
+## 参考资料
 - [史上最简单的 Angular2教程](https://gold.xitu.io/post/5860eebe1b69e6006ce1395c)
 - [webpack](https://doc.webpack-china.org/guides/)
 - [Vue官网](https://cn.vuejs.org/v2/guide/comparison.html)

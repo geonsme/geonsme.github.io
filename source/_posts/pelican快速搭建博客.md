@@ -45,7 +45,7 @@ Now，你的Pelican环境已经搭建好了，So Ez？
 
 ## 编写文章
 &emsp;我们首先写一篇HelloPelican文章然后生成发布到本地瞧瞧是怎么个样子。上文说过content目录是用来存放博文等文件目录的，直接在目录里面新建一个文件test.md(本文使用MarkDown来编辑，pelican也支reStructuredText)。
-```txt
+```bash
 Title: HelloPelican
 Date: 2017-10-26
 Category: test
@@ -60,22 +60,22 @@ Text
 
 ## 生成静态HTML
 &emsp;发布后的博客其实是一个单纯如少女的HTML静态文件，所以，这样很安全的，你不用担心数据库安全。使用如下命令进行HTML静态文件生成。生成好的文件在output目录，因此，output目录就是我们要发布的文件。
-```python
-    pelican content
+```bash
+$ pelican content
 ```
 &emsp;生成成功后，在当前目录下，你可以使用下面命令启动server，通过浏览器可以访问到你的页面，你可以自定义端口，也可以空缺，默认采用80端口访问。
-```python
-    pelican -m pelican.server 80
+```bash
+$ pelican -m pelican.server 80
 ```
 如果没有任何的报错信息，服务器已经启动成功，可以通过http://127.0.0.1:80进行访问。
 
 ## 静态资源文件
 &emsp;通过上文，我们已经成功添加第一篇博客，但是很快会发现，如果你往content目录里面添加一个images文件夹存放博文的图片，你会发现`pelican content`并不会复制images文件夹到output目录下。这种不需要编译但又要用到的文件，我们称它为“静态文件”。pelican默认不会复制静态文件到output目录，需要我们在pelicanconf.py配置文件上面配置一下,添加一行：
-```python
+```bash
     STATIC_PATHS = ['images']
 ```
 &emsp;这样就会生成output资源时就会自动把iamges文件夹拷贝到output目录了。另外使用EXTRA_PATH_METADATA也可以把某个目录的文件映射过去，例如favicon.ico放在content/extra目录下，最后需要生成到output的根目录，可以添加：
-```python
+```bash
     STATIC_PATHS = ['images', 'extra/favicon.ico']
     EXTRA_PATH_METADATA = {
         'extra/favicon.ico': {'path': 'favicon.ico'}
@@ -109,11 +109,10 @@ cd ..
 ## 最后的话
 通过以上的步骤，至少本地已经可以访问到博客了，因此，Pelican门槛是非常非常低的，非常便利。作者提供一些优化思路。
 
-1. 七牛云静态资源存储
+1. `七牛云`静态资源存储
 2. 博客目录和发布目录分两个仓库
 3. 增加评论功能
-4. 阅读主题模板源码，修改模板
-5. 阅读Pelican源码，部署到Nginx上提升性能
+4. 自定义模版代码
 
 
 ## 参考文章
