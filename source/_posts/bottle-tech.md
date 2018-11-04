@@ -12,6 +12,8 @@ tag:
 
 ### Bottle
 
+![](http://t1.aixinxi.net/o_1crfolsf7vsd11tb9c4119fgqpa.png-w.jpg)
+
 Bottle是一个简单高效遵循WSGI的Python Web框架，整个框架源码非常小，只有一个文件`bottle.py`，不依赖第三方库，只依赖Python标准库。和Django相比，bottle显示是mini了很多，不用配置复杂的setting和多app配置，相比flask而言，因为不用像flask会依赖非常多的第三方库，而且bottle源码很简短，可以阅读源码学习到flask的同理设计，深入理解HTTP服务器设计思路。
 
 ### 安装
