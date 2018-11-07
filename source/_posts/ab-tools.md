@@ -40,7 +40,7 @@ tag:
 
 1. 安装ab工具
 
-```bash
+```bash 
 Ubuntu安装ab工具
 $ apt-get install apache2-utils
 ```
