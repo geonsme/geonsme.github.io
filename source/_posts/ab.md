@@ -1,5 +1,5 @@
 ---
-title:  ab实用压测
+title:  ab——一款太真实的压测工具
 toc: true
 description:  ab压测是一个低成本的，快速方便的测试
 date: 2018-11-07
