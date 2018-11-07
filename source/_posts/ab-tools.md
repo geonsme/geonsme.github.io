@@ -32,9 +32,11 @@ tag:
 
 处理完成所有请求数所花费的时间 / 总请求数，即Time taken for / testsComplete requests。也叫做`平响`。可以看到，它是吞吐率的倒数。因此，平响越低，吞吐率越高。同时，它也=用户平均请求等待时间/并发用户数，Time per request / Concurrency Level
 
-## 测试HTTP接口
+## 测试HTTP接口 
 
-选了一台闲置的测试机，作为压测服务器，向`https://codemart.com/codemart.com/api/developer/rank`接口发起GET压测，分析压测数据。
+选了一台闲置的测试机，作为压测服务器，向`https://codemart.com/codemart.com/api/developer/rank`接口
+
+发起GET压测，分析压测数据。
 
 1. 安装ab工具
 
