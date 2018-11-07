@@ -34,7 +34,7 @@ tag:
 
 ## 测试HTTP接口
 
-选了一台闲置的测试机，作为压测服务器，向```https://codemart.com/codemart.com/api/developer/rank```接口发起GET压测，分析压测数据。
+选了一台闲置的测试机，作为压测服务器，向`https://codemart.com/codemart.com/api/developer/rank`接口发起GET压测，分析压测数据。
 
 1. 安装ab工具
 
