@@ -3,8 +3,11 @@ node_js:
   - "6"
 
 notifications:
-  email: 
-    - geonscn@163.com
+  email:
+    recipients:
+      - geonscn@163.com
+    on_success: always
+    on_failure: always
 
 # S: Build Lifecycle
 install:
