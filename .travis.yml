@@ -5,7 +5,7 @@ node_js:
 notifications:
   email:
     recipients:
-      - geonscn@163.com
+      - 1090700965@qq.com
     on_success: always
     on_failure: always
 
