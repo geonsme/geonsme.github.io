@@ -1,8 +1,8 @@
 ---
 title: weex入门踩坑指南
 toc: true
-description: 为什么要入门weex，因为我发现v2ex网站没有app，每次获取信息都要打开网页等等操作很不方便，因此先把后端接口用python写好，还缺个app，为了美观和开发效率，花了一天入门weex，尝试做
-date: 2019年2月28日
+description: 为什么要入门weex，因为我发现v2ex网站没有app，每次获取信息都要打开网页等等操作很不方便，因此先把后端接口用python写好，还缺个app，为了美观和开发效率，花了一天入门weex，由于文档的不齐全，踩了很多坑。
+date: 2019-02-28
 category: 
  - 前端
 tag:
