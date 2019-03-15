@@ -1,5 +1,5 @@
 ---
-title: Python3.7生产环境
+title: Python3.7生产环境谨慎安装指南
 toc: true
 date: 2019-3-15
 description: 项目一直推进Python3的使用，很多生产服务器上自带的Python2已经不能用了，需要通过源码安装Python3.7，编译安装过程有比较多隐藏的坑点，这里分享Debian7上安装Python3的过程。
