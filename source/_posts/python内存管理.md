@@ -1,5 +1,5 @@
 ---
-title: Python垃圾回收机制
+title: [加精] Python垃圾回收机制
 toc: true
 date: 2018-10-25
 description: Python垃圾回收机制其实和很多脚本语言一样，采用了引用计数法、标记-清除、分代回收，这里总结Python垃圾回收机制，并分析其优缺点，最直接帮助就是弄明白“循环引用”的问题。
