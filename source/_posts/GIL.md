@@ -1,7 +1,7 @@
 ---
 title:  GIL对多线程的影响
 toc: true
-description:  
+description: GIL并不是Python的特性，它是在实现Python解析器(CPython)时所引入的一个概念。就好比C++是一套语言（语法）标准，但是可以用不同的编译器来编译成可执行代码。
 date: 2017-11-19
 category: 
  - python
