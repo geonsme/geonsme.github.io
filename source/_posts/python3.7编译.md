@@ -31,9 +31,7 @@ $ which python
 
 6. 链接python3和pip3
 
-## 第一步
-
-安装Python3编译所需要的包
+## 第一步 安装Python3编译所需要的包
 
 ```bash
 $ sudo apt-get install build-essential -y
@@ -69,9 +67,7 @@ ldconfig -v
 openssl version
 ```
 
-## 第二步
-
-下载Python源码并解压
+## 第二步 下载Python源码并解压
 
 ```bash
 $ wget --no-check-certificate https://www.python.org/ftp/python/3.7.2/Python-3.7.2.tgz
