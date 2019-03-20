@@ -107,7 +107,7 @@ $ sudo ln -s /usr/local/python35/bin/pip3 /usr/bin/pip3 # 将pip3指向刚刚安
 
 完成后，可以通过`python3`和`pip3 install requests`等测试。
 
-## 第四步 多版本并存
+## 第五步 多版本并存
 
 使用`virtualenv .env -p /usr/bin/python3`指定python版本
 
