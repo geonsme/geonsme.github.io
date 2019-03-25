@@ -2,6 +2,7 @@
 title:  ATC弱网测试环境搭建
 toc: true
 date: 2019-03-25
+description: ATC企业级弱网测试工具相比传统的Newt工具具有明显的灵活性和可配置性，适合大规模测试，针对现在移动应用APP引入弱网测试工具，这里详细介绍ATC搭建步骤，整体来说分为三部分，准备、开热点、开atc
 category: 
  - 工具
 tag:
