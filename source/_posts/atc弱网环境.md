@@ -102,7 +102,7 @@ sudo service hostapd start
 sudo service dnsmasq start 
 ```
 
-## 安装ATC
+## 第三步 安装ATC
 
 ### 安装ATC库
 
