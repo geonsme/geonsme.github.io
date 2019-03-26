@@ -102,10 +102,94 @@ sudo service hostapd start
 sudo service dnsmasq start 
 ```
 
-### 安装ATC
+## 安装ATC
 
-`稍后上架`
+### 安装ATC库
+
+ATC依赖Python、Linux环境，Raspberry已经支持Python环境
+
+```bash
+sudo pip install atc_thrift atcd django-atc-api django-atc-demo-ui django-atc-profile-storage
+sudo pip install django
+```
+
+### 创建atc django工程
+
+```bash
+django-admin startproject atcui
+cd atcui
+```
+
+修改`settings.py`中的INSTALL_APPS
+
+```bash
+INSTALLED_APPS = (
+    ...
+    # Django ATC API
+    'rest_framework',
+    'atc_api',
+    # Django ATC Demo UI
+    'bootstrap_themes',
+    'django_static_jquery',
+    'atc_demo_ui',
+    # Django ATC Profile Storage
+    'atc_profile_storage',
+)
+```
+
+编辑`url.py`
+
+```bash
+from django.views.generic.base import RedirectView
+from django.conf.urls import include
+
+urlpatterns = [
+        url(r'^admin/',admin.site.urls),
+        url(r'^api/v1/',include('atc_api.urls')),
+        url(r'^atc_demo_ui/',include('atc_demo_ui.urls')),
+        url(r'^api/v1/profiles/',include('atc_profile_storage.urls')),
+        url(r'^$',RedirectView.as_view(url='/atc_demo_ui/', permanent=False)),
+    ]
+```
+
+执行migrate，更新django数据库
+
+`python manage.py migrate`
+
+### 启动atc服务
+
+```bash
+sudo atcd --atcd-lan wlan0
+# 进入atcui目录
+python manage.py runserver 0.0.0.0:8000
+```
+
+### 使用facebook提供的网络配置文件
+
+```bash
+apt-get install git
+git clone https://github.com/facebook/augmented-traffic-control.git
+apt-get install curl
+cd augmented-traffic-control
+utils/restore-profiles.sh localhost:8000
+```
+
+配置后重启`server`，访问`http://host:8000`即可访问到ATC配置页面。
+
+### 启动流程
+
+```bash
+sudo ifconfig wlan0 172.0.0.1
+# 启动hostapd
+sudo hostapd -B /etc/hostapd/hostapd.conf
+sudo service hostapd restart
+sudo service udhcpd restart	
+sudo atcd --atcd-lan wlan1
+nohup sudo python manage.py runserver 0.0.0.0:8000 > atcdj.log  2>&1 &
+```
 
 ### 参考资料
 
 [在树莓派上部署ATC网络模拟工具（Augmented Traffic Control）](https://www.jianshu.com/p/0a10ead567c3)
+
+[FaceBook ATC 弱网测试工具环境搭建](https://www.jianshu.com/p/fb4824fd5bbc)
