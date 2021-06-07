@@ -1,0 +1,64 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Python垃圾回收机制 | Geons-程序员</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/8.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Python垃圾回收机制</h1><a id="logo" href="/.">Geons-程序员</a><p class="description">满陇桂雨</p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Python垃圾回收机制</h1><div class="post-meta">Oct 24, 2018<span> | </span><span class="category"><a href="/categories/后端/">后端</a></span></div><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python垃圾回收"><span class="toc-number">1.</span> <span class="toc-text">Python垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引用计数"><span class="toc-number">1.1.</span> <span class="toc-text">引用计数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#标记-清除"><span class="toc-number">2.</span> <span class="toc-text">标记-清除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分代回收"><span class="toc-number">3.</span> <span class="toc-text">分代回收</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#应用"><span class="toc-number">4.</span> <span class="toc-text">应用</span></a></li></ol></div></div><div class="post-content"><h2 id="Python垃圾回收"><a href="#Python垃圾回收" class="headerlink" title="Python垃圾回收"></a>Python垃圾回收</h2><p>平时一些平台开发用Python很多，分析Python的内存管理原理可以避免写出内存泄露的代码。在Python中，万物都是对象，垃圾回收机制以引用计数为主，标记-清除和分代回收为辅。</p>
+<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><ul>
+<li><p>Python主要采用的垃圾回收机制是引用计数法，引用计数法在Java和C++中都有用到，是很常用的内存自动回收机制。</p>
+</li>
+<li><p>对象结构体《Python源码剖析》</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> typedef struct_object &#123;</span><br><span class="line"> int ob_refcnt;</span><br><span class="line"> struct_typeobject *ob_type;</span><br><span class="line">&#125; PyObject;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>引用计数法原理是每个对象维护一个<code>ob_refcnt</code>字段，用来记录当前对象被引用的次数，每当有新的引用指向对象时，<code>ob_refcnt</code>字段增加1，每当有引用失效时候，<code>ob_refcnt</code>字段减少1，一旦对象的引用计数为0，该对象生命期就结束了，对象所分配的内存空间也被释放。</p>
+</li>
+<li><p>引用计数的优点</p>
+</li>
+</ul>
+<ol>
+<li><p>操作简单<br>每个对象都维护自己的计数器，一旦计数器变为0，即被系统回收</p>
+</li>
+<li><p>实时性<br>能够及时处理失效的对象所占的内存空间，不用单独对回收时间处理</p>
+</li>
+</ol>
+<ul>
+<li>引用计数缺点</li>
+</ul>
+<ol>
+<li><p>Python中一切都是对象，运行中维护着庞大的计数器，消耗系统资源</p>
+</li>
+<li><p>循环引用导致计数器无法归零。测试代码中，list_a和list_b相互引用会导致在del list_a时候，由于list_b对象还在，导致引用计数最小为1，同理，list_b对象引用计数也为1，循环引用导致两个对象生命期不会结束，所占内存无法释放，导致内存泄露。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">list_a = []</span><br><span class="line">list_b = []</span><br><span class="line">list_a.append(list_b)</span><br><span class="line">list_b.append(list_a)</span><br><span class="line"><span class="keyword">del</span> list_a</span><br><span class="line"><span class="keyword">del</span> list_b</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="标记-清除"><a href="#标记-清除" class="headerlink" title="标记-清除"></a>标记-清除</h2><p>循环引用导致引用计数的垃圾回收机制出现了很大的弊端，引入了追踪回收（tracing GC）来解决。循环引用的问题根本在于容器对象的使用，比如字典、列表、类、元组。标记清除通过跟踪容器对象，及时发现循环引用位置进行处理。</p>
+<p>因此，标记-清除的思路是每个容器对象维护两个额外的指针，用来将容器对象组装成一个链表，两个指针分别指向两个前后两个容器对象，构成一个有向图。</p>
+<ul>
+<li>标记活动对象</li>
+</ul>
+<p>GC会把所有的活动对象打上标记</p>
+<ul>
+<li>清理非活动对象</li>
+</ul>
+<p>没有被标记的对象进行回收</p>
+<ul>
+<li>查找非活动对象</li>
+</ul>
+<p>容器对象之间通过指针连接成有向图，引用关系构成了有向图的边，从根对象出发（root oject），沿着有向边遍历，可达到的对象为活动对象，并一一标记。不可达到的为不活动对象，就会被GC。</p>
+<p><img src="http://t1.aixinxi.net/o_1crd8rpo716n41eo7q14rbdp4aa.png-w.jpg" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">b = [<span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line">a.append(b)</span><br><span class="line">b.append(a)</span><br><span class="line"><span class="keyword">del</span> a</span><br><span class="line"><span class="keyword">del</span> b</span><br></pre></td></tr></table></figure>
+<p>在执行del a时候，a的引用计数从2减为1，b的引用计数也减为1，标记-清除算法找到a，发现有对b的引用，则将b引用计数减1，因为a直接引用b，找到b，同样对a有一个引用，将a的引用减1，完成ab的引用关系拆减，ab的引用计数降为0，被系统回收。</p>
+<p>标记-清除算法有个缺点是清除非活动对象，必须扫描所有的对象，系统开销是比较大的。</p>
+<h2 id="分代回收"><a href="#分代回收" class="headerlink" title="分代回收"></a>分代回收</h2><p>分代回收也是辅助回收技术，类似于阈值回收，即GC的触发机制是达到了GC阈值即开始强制GC，随着Python程序的运行，不断有对象被创建和销毁，如果存在循环引用就会导致创建&gt;&gt;回收，当创建和回收的差值到达了GC阈值，就会触发分代回收。</p>
+<p>Python将内存中的对象存活时间分为3个集合，分别为年轻代（0代），中年代（1代），老年代（2代），新创建的对象都会放在年轻代，年轻代达到数量后，强制将能回收的对象回收，不会回收的对象被移动到中年代，最后最不活跃的对象会进入老年代，老年代的对象一般是全局存在的，直到进程退出，生命周期结束。</p>
+<p>分代回收很有意思，它将对象标记成3种状态，根据不同状态设定不同的阈值，每一个对象的计数器增加将触发垃圾检查，回收不同生命期的对象，控制不同生命期对象数量。</p>
+<p>因此，Python的垃圾回收机制主要还是引用计数为主，标记清除、分代回收为辅，帮助解决循环引用导致的内存泄露。</p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>通过<code>import gc</code>模块，打开<code>is_enable()</code>模块才会开启自动垃圾回收机制，主要作用是发现并处理不可达的对象。</p>
+<ol>
+<li><p>项目中避免循环引用</p>
+</li>
+<li><p>引入gc模块，开启自动回收机制</p>
+</li>
+<li><p>分代回收需要，尽量将变量统一管理，便于gc检查的速度</p>
+</li>
+<li><p>gc模块处理不了循环引用类都重载了<strong>del</strong>方法的对象，可以使用gc.carbage来打破.</p>
+</li>
+</ol>
+</div><div class="tags"><a href="/tags/python/">python</a></div><div class="post-nav"><a class="pre" href="/2018/11/04/bottle-tech/">Bottle—快速实现小型服务接口</a><a class="next" href="/2018/05/12/pelican快速搭建博客/">Hexo+Github+Travis部署博客</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端/">前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/后台/">后台</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/后端/">后端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/想法/">想法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/系统/">系统</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/hexo/" style="font-size: 15px;">hexo</a> <a href="/tags/ab压测/" style="font-size: 15px;">ab压测</a> <a href="/tags/自动化/" style="font-size: 15px;">自动化</a> <a href="/tags/测试技术/" style="font-size: 15px;">测试技术</a> <a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/奇怪的想法/" style="font-size: 15px;">奇怪的想法</a> <a href="/tags/会玩/" style="font-size: 15px;">会玩</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/持续集成/" style="font-size: 15px;">持续集成</a> <a href="/tags/弱网测试/" style="font-size: 15px;">弱网测试</a> <a href="/tags/树莓派/" style="font-size: 15px;">树莓派</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/weex/" style="font-size: 15px;">weex</a> <a href="/tags/webapp/" style="font-size: 15px;">webapp</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/05/09/fishfind/">做个水下探测器-fishfind</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/atc弱网环境/">ATC弱网测试环境搭建</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/supervisor进程监管/">supervisor实现Django进程监管</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/python3.7编译/">Python3.7生产环境谨慎安装指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/27/weex-tor/">weex入门踩坑指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/08/uwsgi-nginx-timout/">一个奇怪的连接断开bug</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/08/uwsgi-django-nginx/">nginx+uwsgi在生产环境中部署Django</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/06/ab-tools/">ab——一个超简单的压测工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/11/04/bottle-tech/">Bottle—快速实现小型服务接口</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/10/24/python内存管理/">Python垃圾回收机制</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://www.keakon.net/category/Python" title="分类Python" target="_blank">分类Python</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Geons-程序员.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.3.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
